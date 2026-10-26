@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Payment Calculator</title>
+
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            margin: 20px;
+        }
+
+        input {
+            width: 250px;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+
+        label {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+
+        #result {
+            font-size: 20px;
+            margin-top: 25px;
+        }
+    </style>
+
+    <script>
+        function calculatePayment() {
+            let PV = Number(document.getElementById("loan").value);
+            let n = Number(document.getElementById("years").value);
+            let r = Number(document.getElementById("rate").value);
+
+            if (PV <= 0 || n <= 0 || r <= 0) {
+                document.getElementById("result").innerHTML =
+                    "Please enter valid positive numbers.";
+                return;
+            }
+
+            let P = ((r/100/12) * PV) / (1-(1+(r/100/12))**-(n*12));
+
+            document.getElementById("result").innerHTML =
+                "If you have a $" + PV +
+                " loan for " + n +
+                " years at " + r +
+                "% interest,<br>Your monthly payment will be: $" +
+                P.toFixed(2);
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Loan Payment Calculator</h1>
+
+    <input type="number" id="loan" value="25000">
+    <label for="loan">Present Value -- Amount you wish to borrow</label>
+    <br>
+
+    <input type="number" id="years" value="6">
+    <label for="years">Years</label>
+    <br>
+
+    <input type="number" id="rate" value="6">
+    <label for="rate">% -- Annual interest rate</label>
+    <br>
+
+    <button onclick="calculatePayment()">
+        Calculate the Monthly Payment
+    </button>
+
+    <p id="result"></p>
+
+</body>
+</html>
